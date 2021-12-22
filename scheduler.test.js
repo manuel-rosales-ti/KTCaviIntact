@@ -1,21 +1,24 @@
 
 // Description: Regression testing for Intact CAVI application - Region Management Options
-
+require('dotenv').config()
 const { Builder, By, Key, WebDriver } = require('selenium-webdriver');
 const _http = require('selenium-webdriver/http');
-const testdata = require('./testdata.json');
+const {testdata} = require('./testdata.js');
 const assert = require("assert")
 
 // Steps before run test:
-// Run cmd in the root folder (project) the next command: chromedriver.exe command.
-// Run cmd in the root folder (project) the next command: curl -XPOST http://localhost:9515/session -d "{\"desiredCapabilities\":{\"browserName\":\"chrome\"}}"
+// 1) Run in cmd the next commands: 
+//chromedriver.exe command.
+//curl -XPOST http://localhost:9515/session -d "{\"desiredCapabilities\":{\"browserName\":\"chrome\"}}"
+// 2) Copy the session id described in the curl command on the .env file.
 
 // describe
-describe("Regression Testing for Intact CAVI Application, Report Scheduler Options.", function () {
+describe("Regression Testing for Intact CAVI Application, Broker Management Options.", function () {
 
-    // it block Test Case 1 Add Scheduler Test
-    it("Add Scheduler Test", async function () {
+    let driver;
 
+    // Steps before all tests are executed
+    before(async () => {
         // Initialize webdriver in already opened browser
         let sessionId = testdata.sessionIdqa;
         let url = 'http://localhost:9515/';
@@ -23,7 +26,7 @@ describe("Regression Testing for Intact CAVI Application, Report Scheduler Optio
         let startUrl = 'http://portal-dev.tc3.telus.com/CaviReporting';
 
         // Connect to existing session
-        let driver = await new WebDriver(
+        driver = await new WebDriver(
             sessionId,
             new _http.Executor(Promise.resolve(url)
                 .then(
@@ -43,6 +46,10 @@ describe("Regression Testing for Intact CAVI Application, Report Scheduler Optio
             });
             driver.get(startUrl);
         });
+    })
+
+    // it block Test Case 1 Add Scheduler Test
+    it("Add Scheduler Test", async function () {
 
         // Steps for Test Case 1 Add Scheduler Test
 
@@ -80,34 +87,6 @@ describe("Regression Testing for Intact CAVI Application, Report Scheduler Optio
     // it block Test Case 2 Update Scheduler Test
     it("Update Scheduler Test", async function () {
 
-        // Initialize webdriver in already opened browser
-        let sessionId = testdata.sessionIdqa;
-        let url = 'http://localhost:9515/';
-        let browser = 'chrome';
-        let startUrl = 'http://portal-dev.tc3.telus.com/CaviReporting';
-
-        // Connect to existing session
-        let driver = await new WebDriver(
-            sessionId,
-            new _http.Executor(Promise.resolve(url)
-                .then(
-                    url => new _http.HttpClient(url, null, null))
-            )
-        );
-
-        // Trying to open URL. If does not work - we need to re-create a session
-        await driver.get(startUrl).catch(async r => {
-            console.log('Session "' + sessionId + '" not found. Creating new session.');
-            driver = await new Builder()
-                .usingServer(url)
-                .forBrowser(browser)
-                .build();
-            driver.getSession().then(function (e) {
-                console.log('Session: ' + JSON.stringify(e, null, 2));
-            });
-            driver.get(startUrl);
-        });
-
         // Steps for Test Case 2 Update Scheduler Test
 
         // Press button Update
@@ -130,34 +109,6 @@ describe("Regression Testing for Intact CAVI Application, Report Scheduler Optio
     // it block Test Case 3 Delete Scheduler Test
     it("Delete Scheduler Test", async function () {
 
-        // Initialize webdriver in already opened browser
-        let sessionId = testdata.sessionIdqa;
-        let url = 'http://localhost:9515/';
-        let browser = 'chrome';
-        let startUrl = 'http://portal-dev.tc3.telus.com/CaviReporting';
-
-        // Connect to existing session
-        let driver = await new WebDriver(
-            sessionId,
-            new _http.Executor(Promise.resolve(url)
-                .then(
-                    url => new _http.HttpClient(url, null, null))
-            )
-        );
-
-        // Trying to open URL. If does not work - we need to re-create a session
-        await driver.get(startUrl).catch(async r => {
-            console.log('Session "' + sessionId + '" not found. Creating new session.');
-            driver = await new Builder()
-                .usingServer(url)
-                .forBrowser(browser)
-                .build();
-            driver.getSession().then(function (e) {
-                console.log('Session: ' + JSON.stringify(e, null, 2));
-            });
-            driver.get(startUrl);
-        });
-
         // Steps for Test Case 3 Delete Scheduler Test
 
         // Press button Delete
@@ -174,34 +125,6 @@ describe("Regression Testing for Intact CAVI Application, Report Scheduler Optio
 
     // it block Test Case 4 Validation Fields Scheduler Test
     it("Validation Fields (Scheduler) Test", async function () {
-
-        // Initialize webdriver in already opened browser
-        let sessionId = testdata.sessionIdqa;
-        let url = 'http://localhost:9515/';
-        let browser = 'chrome';
-        let startUrl = 'http://portal-dev.tc3.telus.com/CaviReporting';
-
-        // Connect to existing session
-        let driver = await new WebDriver(
-            sessionId,
-            new _http.Executor(Promise.resolve(url)
-                .then(
-                    url => new _http.HttpClient(url, null, null))
-            )
-        );
-
-        // Trying to open URL. If does not work - we need to re-create a session
-        await driver.get(startUrl).catch(async r => {
-            console.log('Session "' + sessionId + '" not found. Creating new session.');
-            driver = await new Builder()
-                .usingServer(url)
-                .forBrowser(browser)
-                .build();
-            driver.getSession().then(function (e) {
-                console.log('Session: ' + JSON.stringify(e, null, 2));
-            });
-            driver.get(startUrl);
-        });
 
         // Steps for Test Case 4 Validation Fields Scheduler Test
 

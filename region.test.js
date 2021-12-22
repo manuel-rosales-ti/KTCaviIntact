@@ -1,21 +1,24 @@
 
 // Description: Regression testing for Intact CAVI application - Region Management Options
-
+require('dotenv').config()
 const { Builder, By, Key, WebDriver } = require('selenium-webdriver');
 const _http = require('selenium-webdriver/http');
-const testdata = require('./testdata.json');
+const {testdata} = require('./testdata.js');
 const assert = require("assert")
 
 // Steps before run test:
-// Run cmd in the root folder (project) the next command: chromedriver.exe command.
-// Run cmd in the root folder (project) the next command: curl -XPOST http://localhost:9515/session -d "{\"desiredCapabilities\":{\"browserName\":\"chrome\"}}"
+// 1) Run in cmd the next commands: 
+//chromedriver.exe command.
+//curl -XPOST http://localhost:9515/session -d "{\"desiredCapabilities\":{\"browserName\":\"chrome\"}}"
+// 2) Copy the session id described in the curl command on the .env file.
 
 // describe
-describe("Regression Testing for Intact CAVI Application, Region Management Options.", function () {
+describe("Regression Testing for Intact CAVI Application, Broker Management Options.", function () {
 
-    // it block Test Case 1 Add Region Test
-    it("Add Region Test", async function () {
+    let driver;
 
+    // Steps before all tests are executed
+    before(async () => {
         // Initialize webdriver in already opened browser
         let sessionId = testdata.sessionIdqa;
         let url = 'http://localhost:9515/';
@@ -23,7 +26,7 @@ describe("Regression Testing for Intact CAVI Application, Region Management Opti
         let startUrl = 'http://portal-dev.tc3.telus.com/CaviPortal';
 
         // Connect to existing session
-        let driver = await new WebDriver(
+        driver = await new WebDriver(
             sessionId,
             new _http.Executor(Promise.resolve(url)
                 .then(
@@ -46,6 +49,11 @@ describe("Regression Testing for Intact CAVI Application, Region Management Opti
 
         // Select Region Option
         await driver.findElement(By.css(".RRT__tabs > div:nth-of-type(4)")).click()
+
+    })
+
+    // it block Test Case 1 Add Region Test
+    it("Add Region Test", async function () {
 
         // Steps for Test Case 1 Add Region Test
 
@@ -77,37 +85,6 @@ describe("Regression Testing for Intact CAVI Application, Region Management Opti
     // it block Test Case 2 Update Group Test
     it("Update Region Test", async function () {
 
-        // Initialize webdriver in already opened browser
-        let sessionId = testdata.sessionIdqa;
-        let url = 'http://localhost:9515/';
-        let browser = 'chrome';
-        let startUrl = 'http://portal-dev.tc3.telus.com/CaviPortal';
-
-        // Connect to existing session
-        let driver = await new WebDriver(
-            sessionId,
-            new _http.Executor(Promise.resolve(url)
-                .then(
-                    url => new _http.HttpClient(url, null, null))
-            )
-        );
-
-        // Trying to open URL. If does not work - we need to re-create a session
-        await driver.get(startUrl).catch(async r => {
-            console.log('Session "' + sessionId + '" not found. Creating new session.');
-            driver = await new Builder()
-                .usingServer(url)
-                .forBrowser(browser)
-                .build();
-            driver.getSession().then(function (e) {
-                console.log('Session: ' + JSON.stringify(e, null, 2));
-            });
-            driver.get(startUrl);
-        });
-
-        // Select Region Option
-        await driver.findElement(By.css(".RRT__tabs > div:nth-of-type(4)")).click()
-
         // Steps for Test Case 2 Update Region Test
 
         // Press button Update
@@ -130,37 +107,6 @@ describe("Regression Testing for Intact CAVI Application, Region Management Opti
     // it block Test Case 3 Delete Region Test
     it("Delete Region Test", async function () {
 
-        // Initialize webdriver in already opened browser
-        let sessionId = testdata.sessionIdqa;
-        let url = 'http://localhost:9515/';
-        let browser = 'chrome';
-        let startUrl = 'http://portal-dev.tc3.telus.com/CaviPortal';
-
-        // Connect to existing session
-        let driver = await new WebDriver(
-            sessionId,
-            new _http.Executor(Promise.resolve(url)
-                .then(
-                    url => new _http.HttpClient(url, null, null))
-            )
-        );
-
-        // Trying to open URL. If does not work - we need to re-create a session
-        await driver.get(startUrl).catch(async r => {
-            console.log('Session "' + sessionId + '" not found. Creating new session.');
-            driver = await new Builder()
-                .usingServer(url)
-                .forBrowser(browser)
-                .build();
-            driver.getSession().then(function (e) {
-                console.log('Session: ' + JSON.stringify(e, null, 2));
-            });
-            driver.get(startUrl);
-        });
-
-        // Select Region Option
-        await driver.findElement(By.css(".RRT__tabs > div:nth-of-type(4)")).click()
-
         // Steps for Test Case 3 Delete Region Test
 
         // Press button Delete
@@ -178,33 +124,7 @@ describe("Regression Testing for Intact CAVI Application, Region Management Opti
     // it block Test Case 4 Validation Fields (Region) Test
     it("Validation Fields (Region) Test", async function () {
 
-        // Initialize webdriver in already opened browser
-        let sessionId = testdata.sessionIdqa;
-        let url = 'http://localhost:9515/';
-        let browser = 'chrome';
-        let startUrl = 'http://portal-dev.tc3.telus.com/CaviPortal';
-
-        // Connect to existing session
-        let driver = await new WebDriver(
-            sessionId,
-            new _http.Executor(Promise.resolve(url)
-                .then(
-                    url => new _http.HttpClient(url, null, null))
-            )
-        );
-
-        // Trying to open URL. If does not work - we need to re-create a session
-        await driver.get(startUrl).catch(async r => {
-            console.log('Session "' + sessionId + '" not found. Creating new session.');
-            driver = await new Builder()
-                .usingServer(url)
-                .forBrowser(browser)
-                .build();
-            driver.getSession().then(function (e) {
-                console.log('Session: ' + JSON.stringify(e, null, 2));
-            });
-            driver.get(startUrl);
-        });
+        // Steps for Test Case 4 Validation Fields Test
 
         // Select Region Option
         await driver.findElement(By.css(".RRT__tabs > div:nth-of-type(4)")).click()

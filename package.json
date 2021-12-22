@@ -4,15 +4,23 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "brokers-test": "npx mocha --no-timeouts 'brokers.test.js'", 
+    "group-test": "npx mocha --no-timeouts 'group.test.js'",
+    "region-test": "npx mocha --no-timeouts 'region.test.js'",
+    "rules-test": "npx mocha --no-timeouts 'rules.test.js'",
+    "scheduler-test": "npx mocha --no-timeouts 'scheduler.test.js'",
+    "users-test": "npx mocha --no-timeouts 'users.test.js'",
+    "regression-test": "npx mocha --no-timeouts '*.test.js'"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "chromedriver": "^91.0.1",
+    "dotenv": "^10.0.0",
     "geckodriver": "^2.0.0",
     "mocha": "^9.0.1",
-    "selenium-webdriver": "^4.0.0-beta.4"
+    "selenium-webdriver": "^4.0.0-rc-1"
   }
 }
